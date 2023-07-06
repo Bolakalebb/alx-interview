@@ -1,21 +1,23 @@
 #!/usr/bin/python3
 """
-method that determines if all the boxes can be opened.
+a method that determines if all the boxes can be opened.
 """
 
 def canUnlockAll(boxes):
-    n = len(boxes)
-    unlocked = [False] * n
-    unlocked[0] = True
+    """
+    Prototype that determines if all the boxes can be opened.
+    """
+    size = len(boxes)  # size of the list of boxes.
+    checkbox = {}  # dictionary that will contain the boxes that can be opened.
+    index = 0  # index of the box that will be checked.
 
-    keys = [0]  # Start with the keys in the first box
-
-    while keys:
-        current_box = keys.pop()
-
-        for key in boxes[current_box]:
-            if key < n and not unlocked[key]:
-                unlocked[key] = True
-                keys.append(key)
-
-    return all(unlocked)
+    for keys in boxes:  # for each box in the list of boxes.
+        if len(keys) == 0 or index == 0:
+            checkbox[index] = -1
+        for key in keys:
+            if key < size and key != index:
+                checkbox[key] = key  # the box is added to the dictionary.
+        if len(checkbox) == size:
+            return True  # all the boxes can be opened.
+        index += 1
+    return False
