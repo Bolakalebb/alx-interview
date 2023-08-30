@@ -10,16 +10,16 @@ def makeChange(coins, total):
     Given a pile of coins of different values, determine the fewest
     number of coins needed to meet a given amount total.
     """
-    sum = 0
-    if (total <= 0):
-        return 0
+    change = 0
+    index = 0
+    # sort coins in descending order
     coins.sort(reverse=True)
-    for i in coins:
-        if (total < i):
-            pass
-        q, r = divmod(total, i)
-        total = r
-        sum += q
-    if (total != 0):
-        return -1
-    return sum
+    while total > 0:
+        if index >= len(coins):
+            return -1
+        if coins[index] <= total:
+            total -= coins[index]
+            change += 1
+        else:
+            index += 1
+    return change
